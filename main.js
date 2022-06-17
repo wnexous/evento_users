@@ -5,9 +5,9 @@ JSON.stringify;
 DB = require("./users_data.json");
 lista_de_participantes = [];
 
-//configuracoes do code
+//configurações do code
 const data_evento = new Date("2022-06-18"); //data do evento
-const maximo_de_participantes = 100; //numero maximo de participantes
+const limite_participantes = 100; //numero máximo de participantes
 
 console.log(`Bem vindo ao cadastro do evento!
 ----------------------------------------
@@ -16,11 +16,12 @@ users = require("./users_data.json");
 function msg_erro(msg) {
   console.log(`
 ------------------------------------------
-Cadastro impossivel.
+Cadastro impossível.
 ------------------------------------------
-
 Encontramos um erro ao realizar seu cadastro!
 Motivo: ${msg}
+
+Caso aja alguma discordância, contate o suporte no sie.
 `);
 }
 
@@ -46,24 +47,24 @@ console.log(
   `Total de participantes: ${lista_de_participantes.length}\n------------------------------------------`
 );
 
-if (lista_de_participantes.length >= maximo_de_participantes) {
-  msg_erro("Numero maximo de participantes foi excedido!");
+if (lista_de_participantes.length >= limite_participantes) {
+  msg_erro("Numero máximo de participantes foi excedido!");
   process.exit();
 }
 
-//captura o nome do usuario
+//captura o nome do usuários
 while (true) {
   nome = input("Digite seu nome: ");
   if (isNaN(nome) & (!nome == "")) {
     break;
   } else {
-    console.log("Seu nome nao pode conter numeros.");
+    console.log("Seu nome nao pode conter número.");
   }
 }
 
-//primeiro captura o dia de nascimento do usuario
+//primeiro captura o dia de nascimento do usuário
 while (true) {
-  dia_nascimento = input("Digite o DIA do seu nascimento: ");
+  dia_nascimento = input("insira o DIA do seu nascimento(entre 1 a 31): ");
   if (
     isFinite(dia_nascimento) &
     (!dia_nascimento == "") &
@@ -157,18 +158,18 @@ while (true) {
   }
 }
 
-//recebe data de nascimento e faz uma diferenca com a data do evento. Caso o usuario tenha 18 anos no dia do evento, prossegue como true, caso nao tenha, retorna uma mensagem de erro
+//recebe data de nascimento e faz uma diferença com a data do evento. Caso o usuário tenha 18 anos no dia do evento, prossegue como true, caso nao tenha, retorna uma mensagem de erro
 let data_nascimento = new Date(ano_nascimento, mes_nascimento, dia_nascimento);
-const diferenca = Math.abs(data_evento.getTime() - data_nascimento.getTime());
-const anos = Math.ceil(diferenca / (1000 * 60 * 60 * 8760));
+const diff = Math.abs(data_evento.getTime() - data_nascimento.getTime());
+const anos = Math.ceil(diff / (1000 * 60 * 60 * 8760));
 
 if (anos - 1 >= 18) {
   console.log(`
 ------------------------------------------
-Cadastro concluido e adicionado ao evento!
+Cadastro concluído e adicionado ao evento!
 ------------------------------------------
 
-Informacoes do seu cadastro:
+Informações do seu cadastro:
 Nome: ${nome}
 Nascimento: ${data_nascimento}
 Idade: ${anos - 1}
